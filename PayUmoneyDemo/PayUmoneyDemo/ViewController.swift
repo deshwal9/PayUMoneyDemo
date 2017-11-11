@@ -52,10 +52,8 @@ class ViewController: UIViewController {
         txnParam.merchantid = "4929738"
         // should be came from web
         txnParam.txnID = "txnID123"
-        txnParam.surl = "http://livenutrifit.com//IosAppPayUPaymentSuccess.aspx"
-        //"https://www.payumoney.com/mobileapp/payumoney/success.php"
-        txnParam.furl = "http://livenutrifit.com/IosAPPPayUPaymentFail.aspx"
-        //"https://www.payumoney.com/mobileapp/payumoney/failure.php"
+        txnParam.surl = "https://www.payumoney.com/mobileapp/payumoney/success.php"
+        txnParam.furl = "https://www.payumoney.com/mobileapp/payumoney/failure.php"
         txnParam.productInfo = "iPhone7"
         txnParam.udf1 = ""
         txnParam.udf2 = ""

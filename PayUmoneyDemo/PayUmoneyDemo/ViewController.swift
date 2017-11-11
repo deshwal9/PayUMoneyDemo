@@ -26,6 +26,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailTxtfld: UITextField!
     @IBOutlet weak var amountTxtfld: UITextField!
     @IBOutlet weak var paymentBtn: UIButton!
+    /*
+     get this details from payUmoney account after creating account on that
+    */
+    
     enum PaymentDetails : String{
         case merchantID  = "4929738"
         case merchantKey = "eBJWgD"
@@ -48,13 +52,22 @@ class ViewController: UIViewController {
         txnParam.amount = "100"
         txnParam.environment = PUMEnvironment.test
         txnParam.firstname = "Umang"
-        txnParam.key = "eBJWgD"
-        txnParam.merchantid = "4929738"
-        // should be came from web
+        txnParam.key = PaymentDetails.merchantKey.rawValue
+        txnParam.merchantid = PaymentDetails.merchantID.rawValue
+        //  transactionid should be came from backend
+        // dynamicly creating transactionid for demo purpose only
+        let uuid = UUID().uuidString
+        let transaction = uuid.sha512()
+        let transactionid = (transaction as NSString).substring(to: 20)
+        txnParam.txnID = transactionid
         txnParam.txnID = "txnID123"
+        // url which will show when transaction succeed
         txnParam.surl = "https://www.payumoney.com/mobileapp/payumoney/success.php"
+        // url which will show when transaction failed
         txnParam.furl = "https://www.payumoney.com/mobileapp/payumoney/failure.php"
+        // Product info which user going to buy
         txnParam.productInfo = "iPhone7"
+        // User define parameter
         txnParam.udf1 = ""
         txnParam.udf2 = ""
         txnParam.udf3 = ""
@@ -65,9 +78,7 @@ class ViewController: UIViewController {
         txnParam.udf8 = ""
         txnParam.udf9 = ""
         txnParam.udf10 = ""
-        let serviceprovider:String = "payu_paisa"
-        let lastname = "Deshwal"
-        
+      
         let hashValue = String.localizedStringWithFormat("%@|%@|%@|%@|%@|%@|||||||||||%@",PaymentDetails.merchantKey.rawValue,txnParam.txnID!,txnParam.amount!,txnParam.productInfo!,txnParam.firstname!,txnParam.email!,PaymentDetails.salt.rawValue)
         // let hash = self.sha1(string: hashValue)
     /*
@@ -77,9 +88,9 @@ class ViewController: UIViewController {
         let completeHash = "\(hash1)\(hash2)\(hash3)"
  */
          txnParam.hashValue = hashValue.sha512()
-    //    hashSequence = key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt.
-    //    $hash = hash("sha512", $hashSequence);
         PlugNPlay.presentPaymentViewController(withTxnParams: txnParam, on: self) { (paymentResponse, error, extraParam) in
+            
+            
             print(paymentResponse ?? "paymentResponse is having none value")
             print(error ?? "error is having none value")
             print(paymentResponse ?? "paymentResponse IS HAVING NONE VALUE")

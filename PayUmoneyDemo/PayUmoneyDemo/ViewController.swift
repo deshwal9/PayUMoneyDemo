@@ -29,13 +29,21 @@ class ViewController: UIViewController {
     /*
      get this details from payUmoney account after creating account on that
     */
-    
+    /*
     enum PaymentDetails : String{
-        case merchantID  = "4929738"
-        case merchantKey = "eBJWgD"
-        case salt = "4FtuMTMF"
+        case merchantID  = "5943938"
+        case merchantKey = "0Ar5nsZ8"
+        case salt = "5rADLfzSxX"
         case baseUrl = "https://test.payu.in"
     }
+ */
+ enum TestPaymentDetails : String{
+     case merchantID  = "396132"
+     case merchantKey = "40747T"
+     case salt = "cJHb2BC9"
+     case baseUrl = "https://test.payu.in"
+     }
+
     
     
     override func viewDidLoad() {
@@ -51,9 +59,9 @@ class ViewController: UIViewController {
         txnParam.email = "umangarya336@gmail.com"
         txnParam.amount = "100"
         txnParam.environment = PUMEnvironment.test
-        txnParam.firstname = "Umang"
-        txnParam.key = PaymentDetails.merchantKey.rawValue
-        txnParam.merchantid = PaymentDetails.merchantID.rawValue
+        txnParam.firstname = "test"
+        txnParam.key = TestPaymentDetails.merchantKey.rawValue
+        txnParam.merchantid = TestPaymentDetails.merchantID.rawValue
         //  transactionid should be came from backend
         // dynamicly creating transactionid for demo purpose only
         let uuid = UUID().uuidString
@@ -79,7 +87,7 @@ class ViewController: UIViewController {
         txnParam.udf9 = ""
         txnParam.udf10 = ""
       
-        let hashValue = String.localizedStringWithFormat("%@|%@|%@|%@|%@|%@|||||||||||%@",PaymentDetails.merchantKey.rawValue,txnParam.txnID!,txnParam.amount!,txnParam.productInfo!,txnParam.firstname!,txnParam.email!,PaymentDetails.salt.rawValue)
+        let hashValue = String.localizedStringWithFormat("%@|%@|%@|%@|%@|%@|||||||||||%@",TestPaymentDetails.merchantKey.rawValue,txnParam.txnID!,txnParam.amount!,txnParam.productInfo!,txnParam.firstname!,txnParam.email!,TestPaymentDetails.salt.rawValue)
         // let hash = self.sha1(string: hashValue)
     /*
         let hash1 = "\(PaymentDetails.merchantKey.rawValue)|\(txnParam.txnID!)|\(txnParam.amount!)|\(txnParam.productInfo!)|\(txnParam.firstname!)|\(txnParam.email!)|"
